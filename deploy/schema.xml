@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="engine" defaultIdMethod="native" defaultPhpNamingMethod="underscore" namespace="Engine">
+  <table name="users" idMethod="native" phpName="Users">
+    <column name="id" phpName="Id" type="INTEGER" size="32" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="first_name" phpName="FirstName" type="VARCHAR" size="255" required="true"/>
+    <column name="last_name" phpName="LastName" type="VARCHAR" size="255" required="true"/>
+    <column name="email" phpName="Email" type="VARCHAR" size="64" primaryKey="true" required="true"/>
+    <column name="password" phpName="Password" type="VARCHAR" size="72" required="true" defaultValue=""/>
+    <column name="status" phpName="Status" type="CHAR" sqlType="enum('active','deleted','not_confirmed')" required="true" defaultValue="not_confirmed"/>
+    <column name="add_time" phpName="AddTime" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+    <index name="email">
+      <index-column name="email" size="64"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+      <parameter name="Charset" value="utf8"/>
+    </vendor>
+  </table>
+
+  <table name="links" idMethod="native" phpName="Links">
+    <column name="id" phpName="Id" type="INTEGER" size="32" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="original" phpName="Original" type="VARCHAR" size="255" required="true"/>
+    <column name="shorted" phpName="Shorted" type="VARCHAR" size="255" required="true"/>
+    <column name="accessibility" phpName="Accessibility" type="CHAR" sqlType="enum('private','public')" required="true" defaultValue="public"/>
+    <column name="user_id" phpName="UserId" type="INTEGER" size="32" required="true"/>
+    <column name="add_time" phpName="AddTime" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+    <foreign-key foreignTable="users" phpName="Users">
+      <reference local="user_id" foreign="id"/>
+    </foreign-key>
+    <index name="shorted">
+      <index-column name="shorted" size="255"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+      <parameter name="Charset" value="utf8"/>
+    </vendor>
+  </table>
+
+  <table name="link_views" idMethod="native" phpName="LinkViews">
+    <column name="id" phpName="Id" type="INTEGER" size="32" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="link_id" phpName="LinkId" type="INTEGER" size="32" required="true"/>
+    <column name="ip" phpName="Ip" type="VARCHAR" size="64" required="true"/>
+    <column name="user_agent" phpName="UserAgent" type="VARCHAR" size="255" required="true"/>
+    <column name="add_time" phpName="AddTime" type="TIMESTAMP" required="true" defaultExpr="CURRENT_TIMESTAMP"/>
+    <foreign-key foreignTable="links" phpName="Links">
+      <reference local="link_id" foreign="id"/>
+    </foreign-key>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+      <parameter name="Charset" value="utf8"/>
+    </vendor>
+  </table>
+</database>

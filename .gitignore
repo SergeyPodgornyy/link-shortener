@@ -1,0 +1,11 @@
+./idea
+*sublime*
+Makefile
+npm-debug.log
+/etc/app-conf.php
+/etc/propel.php
+/node_modules/
+/logs/*
+!/logs/README.md
+/vendor/
+/tests/etc/propel.php

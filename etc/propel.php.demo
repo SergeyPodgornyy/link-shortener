@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'propel' => [
+        'database' => [
+            'connections' => [
+                'engine' => [
+                    'adapter'    => 'mysql',
+                    'classname'  => 'Propel\Runtime\Connection\ConnectionWrapper',
+                    'dsn'        => 'mysql:host=localhost;dbname=link_shortener_db;charset=utf8',
+                    'user'       => 'root',
+                    'password'   => '',
+                    'attributes' => []
+                ]
+            ]
+        ],
+        'runtime' => [
+            'defaultConnection' => 'engine',
+            'connections' => ['engine']
+        ],
+        'generator' => [
+            'defaultConnection' => 'engine',
+            'connections' => ['engine']
+        ]
+    ]
+];
